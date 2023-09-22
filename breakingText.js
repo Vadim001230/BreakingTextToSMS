@@ -1,77 +1,66 @@
-export default class BreakingText {
-  constructor(text) {
-    this.text = text;
-    this.words = text.split(' ');
-    this.result = [];
-    this.MAX_LENGTH = 140;
-    this.spaceLength = 1;
-    this.numberOfSMS = 1;
-    this.currentSMS = '';
-    this.amountSMS = Math.round(text.length / 140);
-    this.amountSMSLength = this.amountSMS.toString().length;
-    this.suffixLength =
-      this.numberOfSMS.toString().length +
-      this.spaceLength +
-      this.amountSMSLength;
+export default function breakingText(text) {
+  const words = text.split(' ');
+  const result = [];
+  const MAX_LENGTH = 140;
+  const spaceLength = 1;
+  const amountSMS = Math.round(text.length / 140);
+  const amountSMSLength = amountSMS.toString().length;
+  let numberOfSMS = 1;
+  let suffixLength =
+    numberOfSMS.toString().length + spaceLength + amountSMSLength;
+  let currentSMS = '';
+
+  if (text.length < MAX_LENGTH) {
+    result.push(text);
+    return result;
   }
 
-  splitSMS() {
-    if (this.text.length < this.MAX_LENGTH) {
-      this.result.push(this.text);
-      return this.result;
-    }
-
-    for (let i = 0; i < this.words.length; i++) {
-      if (
-        this.currentSMS.length +
-          this.words[i].length +
-          this.spaceLength +
-          this.suffixLength <
-        this.MAX_LENGTH
-      ) {
-        this.currentSMS += `${this.words[i]} `;
-        if (i === this.words.length - 1) {
-          this.currentSMS += `${this.numberOfSMS}/${this.amountSMS}`;
-          this.result.push(this.currentSMS);
-        }
-      } else {
-        this.currentSMS += `${this.numberOfSMS}/${this.amountSMS}`;
-        this.result.push(this.currentSMS);
-        this.currentSMS = `${this.words[i]} `;
-        this.numberOfSMS++;
-        this.suffixLength =
-          this.numberOfSMS.toString().length +
-          this.spaceLength +
-          this.amountSMSLength;
+  for (let i = 0; i < words.length; i++) {
+    if (
+      currentSMS.length + words[i].length + spaceLength + suffixLength <
+      MAX_LENGTH
+    ) {
+      currentSMS += `${words[i]} `;
+      if (i === words.length - 1) {
+        currentSMS += `${numberOfSMS}/${amountSMS}`;
+        result.push(currentSMS);
       }
+    } else {
+      currentSMS += `${numberOfSMS}/${amountSMS}`;
+      result.push(currentSMS);
+      currentSMS = `${words[i]} `;
+      numberOfSMS++;
+      suffixLength =
+        numberOfSMS.toString().length + spaceLength + amountSMSLength;
     }
-
-    this.#fixSuffix(this.result);
-    this.#fixLength(this.result);
-    this.#fixSuffix(this.result);
-
-    return this.result;
   }
 
-  #fixLength() {
-    for (let i = 0; i < this.result.length; i++) {
-      if (this.result[i].length >= this.MAX_LENGTH) {
+  const fixLength = () => {
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].length >= MAX_LENGTH) {
         const resultElem = result[i].split(' ');
         const lastElemIndex = resultElem.length - 2;
         result[i + 1] = resultElem[lastElemIndex] + ' ' + result[i + 1];
         const suffix = `${i + 1}/${result.length}`;
         resultElem.splice(lastElemIndex, 2, suffix);
-        this.result[i] = resultElem.join(' ');
+        result[i] = resultElem.join(' ');
       }
     }
-  }
-
-  #fixSuffix() {
-    for (let i = 0; i < this.result.length; i++) {
-      const resultElem = this.result[i].split(' ');
-      const suffix = `${i + 1}/${this.result.length}`;
+  };
+  const fixSuffix = () => {
+    for (let i = 0; i < result.length; i++) {
+      const resultElem = result[i].split(' ');
+      const suffix = `${i + 1}/${result.length}`;
       resultElem.splice(-1, 1, suffix);
-      this.result[i] = resultElem.join(' ');
+      result[i] = resultElem.join(' ');
     }
+  };
+  fixSuffix(result);
+  fixLength(result);
+  while (!result.every((elem) => elem.length < MAX_LENGTH)) {
+    fixLength(result);
   }
+  fixSuffix(result);
+
+  return result;
 }

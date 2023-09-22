@@ -1,16 +1,14 @@
-import BreakingText from './breakingText';
 import { textToTest } from './texts';
 import { textToTest1 } from './texts';
 import { textToTest2 } from './texts';
 import { textToTest3 } from './texts';
+import breakingText from './breakingText';
 
 const bigText =
   textToTest + textToTest + textToTest + textToTest + textToTest + textToTest;
-
 const initTimestamp = performance.now();
 for (let i = 0; i < 1; i++) {
-  const brakingText = new BreakingText(textToTest);
-  console.log(brakingText.splitSMS());
+  breakingText(textToTest);
 }
 const resultTimestamp = performance.now();
 
