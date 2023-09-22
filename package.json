@@ -1,0 +1,12 @@
+{
+  "name": "breakingtexttosms",
+  "version": "1.0.0",
+  "description": "**Нужно написать функцию для разбивки текста на фрагменты.**",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vadim Shershen",
+  "license": "ISC"
+}

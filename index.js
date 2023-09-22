@@ -1,8 +1,8 @@
-import { textToTest } from './texts';
-import { textToTest1 } from './texts';
-import { textToTest2 } from './texts';
-import { textToTest3 } from './texts';
-import breakingText from './breakingText';
+import { textToTest } from './texts.js';
+// import { textToTest1 } from './texts';
+// import { textToTest2 } from './texts';
+// import { textToTest3 } from './texts';
+import breakingText from './breakingText.js';
 
 const bigText =
   textToTest + textToTest + textToTest + textToTest + textToTest + textToTest;
