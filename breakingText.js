@@ -56,10 +56,9 @@ export default function breakingText(text) {
     }
   };
   fixSuffix(result);
-  fixLength(result);
-  while (!result.every((elem) => elem.length < MAX_LENGTH)) {
-    fixLength(result);
-  }
+  do {
+    fixLength();
+  } while (!result.every((elem) => elem.length < MAX_LENGTH));
   fixSuffix(result);
 
   return result;
