@@ -1,11 +1,11 @@
-import BreakingText from './breakingText';
-import { textToTest } from './texts';
-import { textToTest1 } from './texts';
-import { textToTest2 } from './texts';
-import { textToTest3 } from './texts';
+import BreakingText from './breakingText.js';
+import { textToTest } from './texts.js';
+// import { textToTest1 } from './texts';
+// import { textToTest2 } from './texts';
+// import { textToTest3 } from './texts';
 
-const bigText =
-  textToTest + textToTest + textToTest + textToTest + textToTest + textToTest;
+// const bigText =
+//   textToTest + textToTest + textToTest + textToTest + textToTest + textToTest;
 
 const initTimestamp = performance.now();
 for (let i = 0; i < 1; i++) {
